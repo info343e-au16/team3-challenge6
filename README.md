@@ -2,6 +2,7 @@
 
 ## Team Members
 
+* Ariadna Norberg
 * Jonathan Alkan 
 * Jimmy Nguyen
 * Fion Chan
