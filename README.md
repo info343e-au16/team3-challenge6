@@ -2,6 +2,6 @@
 
 ## Team Members
 
-* Fion Chan
+* Jonathan Alkan 
 * Jimmy Nguyen
-
+* Fion Chan
