@@ -4,3 +4,4 @@
 
 * Jonathan Alkan 
 * Jimmy Nguyen
+* Fion Chan
