@@ -2,8 +2,7 @@
 
 ## Team Members
 
-<<<<<<< HEAD
 * Ariadna Norberg
-=======
+* Jonathan Alkan 
 * Jimmy Nguyen
->>>>>>> 4cf2d55ff693b438be44d2999a5c6541dd3818da
+* Fion Chan
