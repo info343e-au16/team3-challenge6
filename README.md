@@ -2,4 +2,6 @@
 
 ## Team Members
 
+* Fion Chan
 * Jimmy Nguyen
+
