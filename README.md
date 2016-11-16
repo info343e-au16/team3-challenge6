@@ -3,3 +3,4 @@
 ## Team Members
 
 * Jonathan Alkan 
+* Jimmy Nguyen
