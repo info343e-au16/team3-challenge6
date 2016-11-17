@@ -17,6 +17,12 @@ class App extends React.Component {
         return (
             <div className="container">
             <Header />
+
+            <SearchForm 
+                onSearch={(movie) => this.onSearch(movie)}
+            
+            />
+
                 {
                     this.state.title ? (
                         <ShowResults
