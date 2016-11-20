@@ -7,6 +7,7 @@ class Movies extends React.Component {
                     <li key={movie.id}>
                         <div> 
                             <h2>{movie.title}</h2>
+                              <button onClick={(e) => this.save(e, movie.id)}>Save</button>
 
                             <div>
                                 <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster_path} />
@@ -18,5 +19,10 @@ class Movies extends React.Component {
                 }
             </ul>
         )
+    }
+
+    save(e, id) {
+        console.log(id);
+        this.props.save(id);
     }
 }
