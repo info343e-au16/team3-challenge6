@@ -6,11 +6,13 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            movies: []
+            movies: [],
+            genres: []
         };
     }
     
     componentDidMount() {
+        this.getGenres(); 
         this.topTwenty();
     }
 
@@ -18,11 +20,17 @@ class App extends React.Component {
         return (
             <div className="container">
             <Header />
-
+            
             <SearchForm 
                 onSearch={(movie) => this.movieURL(movie)}
             />
-            
+
+            <Genre 
+                genres={this.state.genres}
+                onPopularClick={() => this.topTwenty()}
+                onGenreClick={(id) => this.genreURL(id)}
+            /> 
+
             <Movies
                 movies={this.state.movies}
             />
@@ -31,10 +39,18 @@ class App extends React.Component {
         );
     }
 
-    onGenreSearch() {
-        var queryValue = this.refs.query.value;
-
-        this.genreURL(queryValue);
+    getGenres() {
+        var url = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY + "&language=en-US"; 
+        
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            }).then((json) => {   
+                this.setState({
+                    genres: json.genres
+                });
+            }).catch((error) => {
+            });
     }
 
     searchMovie(url) {
@@ -57,7 +73,7 @@ class App extends React.Component {
     }
 
     genreURL(id) {
-        var url = "https://api.themoviedb.org/3/genre/" + id + "/movies?=" + API_KEY + "&language=en-US&sort_by=created_at.asc";
+        var url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_genres=" + id;
         this.searchMovie(url);
     }
 
