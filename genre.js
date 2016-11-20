@@ -22,14 +22,11 @@ class Genre extends React.Component {
 
     onPopularClick(e) {
         e.preventDefault(); 
-
         this.props.onPopularClick(); 
     }
 
     onGenreClick(e, id) {
         e.preventDefault(); 
-
         this.props.onGenreClick(id); 
     }
-
 }
