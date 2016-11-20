@@ -8,7 +8,8 @@ class App extends React.Component {
         this.state = {
             movies: [],
             genres: [],
-            cart: []
+            cart: [],
+            cartNumber: 0
         };
     }
     
@@ -41,6 +42,10 @@ class App extends React.Component {
                 onGenreClick={(id) => this.genreURL(id)}
             /> 
 
+            <CartButton
+                cartNumber={this.state.cartNumber}
+            />
+
             <Movies
                 movies={this.state.movies}
                 save={(id) => this.addToCart(id)}
@@ -53,19 +58,20 @@ class App extends React.Component {
     addToCart(id) {
         var cart = this.state.cart;
 
-        // if (cart.indexOf(movie.id) < 0) {
+        if (cart.indexOf(id) < 0) {
             cart.push(id);
 
+            var cartNumber = cart.length();
+
             this.setState({
-                cart: cart
+                cart: cart,
+                cartNumber: cartNumber
             });
 
             console.log(this.state);
             var savedJson = JSON.stringify(cart);
             localStorage.setItem('saveCart', savedJson);
-        //}
-
-
+        }
     }
 
     getGenres() {
