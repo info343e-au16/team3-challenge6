@@ -6,7 +6,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-
+            movies: []
         };
     }
     
@@ -21,18 +21,12 @@ class App extends React.Component {
 
             <SearchForm 
                 onSearch={(movie) => this.movieURL(movie)}
-            
             />
-
-                {
-                    this.state.title ? (
-                        <ShowResults
-                            title={this.state.title}
-                            poster={this.state.poster}
-                            overview={this.state.overview}
-                        />
-                    ) : null
-                }    
+            
+            <Movies
+                movies={this.state.movies}
+            />
+  
             </div>
         );
     }
@@ -49,17 +43,8 @@ class App extends React.Component {
             .then((response) => {
                 return response.json();
             }).then((json) => {   
-                console.log(json);
-                
-                var title = json.results[0].title;         
-                var poster = "http://image.tmdb.org/t/p/w154" + json.results[0].poster_path;
-                var overview = json.results[0].overview;
-                
-                // update state
                 this.setState({
-                    title: title,
-                    poster: poster,
-                    overview: overview
+                    movies: json.results
                 });
             }).catch((error) => {
             });
