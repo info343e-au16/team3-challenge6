@@ -7,11 +7,21 @@ class App extends React.Component {
 
         this.state = {
             movies: [],
-            genres: []
+            genres: [],
+            cart: []
         };
     }
     
     componentDidMount() {
+        var saveCartJSON = localStorage.getItem('saveCart');
+        var saveCart = JSON.parse(saveCartJSON);
+
+        if (saveCart) {
+            this.setState({
+                saved: saveCart
+            });
+        }
+
         this.getGenres(); 
         this.topTwenty();
     }
@@ -33,10 +43,29 @@ class App extends React.Component {
 
             <Movies
                 movies={this.state.movies}
+                save={(id) => this.addToCart(id)}
             />
-  
+
             </div>
         );
+    }
+
+    addToCart(id) {
+        var cart = this.state.cart;
+
+        // if (cart.indexOf(movie.id) < 0) {
+            cart.push(id);
+
+            this.setState({
+                cart: cart
+            });
+
+            console.log(this.state);
+            var savedJson = JSON.stringify(cart);
+            localStorage.setItem('saveCart', savedJson);
+        //}
+
+
     }
 
     getGenres() {
