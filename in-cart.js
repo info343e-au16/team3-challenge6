@@ -1,4 +1,4 @@
-class InCarts extends React.Component {
+class InCart extends React.Component {
     render() {
         return (
             <ul>
@@ -7,10 +7,9 @@ class InCarts extends React.Component {
                     <li key={movie.id}>
                         <div> 
                             <h2>{movie.title}</h2>
-                              <button onClick={(e) => this.save(e, movie.id)}>Save</button>
 
                             <div>
-                                <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster_path} />
+                                <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster} />
                                 <p>{movie.overview}</p>
                             </div>
                         </div>
@@ -19,10 +18,5 @@ class InCarts extends React.Component {
                 }
             </ul>
         )
-    }
-
-    save(e, id) {
-        console.log(id);
-        this.props.save(id);
     }
 }
