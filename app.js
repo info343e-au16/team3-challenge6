@@ -40,8 +40,7 @@ class App extends React.Component {
 
             <Genre 
                 genres={this.state.genres}
-                onPopularClick={() => this.topTwenty()}
-                onGenreClick={(id) => this.genreURL(id)}
+                onGenreClick={(id) => (id === "popular") ? this.topTwenty() : this.genreURL(id)}
             /> 
 
             <CartButton
