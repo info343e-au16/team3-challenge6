@@ -19,7 +19,7 @@ class App extends React.Component {
 
         if (saveCart) {
             this.setState({
-                saved: saveCart
+                cart: saveCart
             });
         }
 
@@ -61,7 +61,7 @@ class App extends React.Component {
         if (cart.indexOf(id) < 0) {
             cart.push(id);
 
-            var cartNumber = cart.length();
+            var cartNumber = cart.length;
 
             this.setState({
                 cart: cart,
@@ -76,7 +76,7 @@ class App extends React.Component {
 
     getGenres() {
         var url = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY + "&language=en-US"; 
-        
+
         fetch(url)
             .then((response) => {
                 return response.json();
