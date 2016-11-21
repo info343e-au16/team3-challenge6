@@ -16,10 +16,12 @@ class App extends React.Component {
     componentDidMount() {
         var saveCartJSON = localStorage.getItem('saveCart');
         var saveCart = JSON.parse(saveCartJSON);
+        var cartNumber = saveCart.length;
 
         if (saveCart) {
             this.setState({
-                cart: saveCart
+                cart: saveCart,
+                cartNumber: cartNumber
             });
         }
 
