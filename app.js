@@ -57,21 +57,39 @@ class App extends React.Component {
 
     addToCart(id) {
         var cart = this.state.cart;
+        var notInCart = true;
+        var index;
 
-        if (cart.indexOf(id) < 0) {
-            cart.push(id);
-
-            var cartNumber = cart.length;
+        var product = {};
+        for (var i = 0; i < cart.length; i++) {
+            if (cart[i]["id"] === id) {
+                notInCart = false;
+                index = i;
+            } 
+        }
+        
+        if (notInCart) {
+            product = {id: id, quantity: 1};
+            cart.push(product);
+        } else {
+            var newQuantity = cart[index]["quantity"] + 1;
+            product = {id: id, quantity: newQuantity}
+            cart[index] = product;
+        }
+            console.log(cart);
+            var cartNumber = 0;
+        for (var i = 0; i < cart.length; i++) {
+            cartNumber += cart[i]["quantity"];
+        }
 
             this.setState({
                 cart: cart,
                 cartNumber: cartNumber
             });
 
-            console.log(this.state);
             var savedJson = JSON.stringify(cart);
             localStorage.setItem('saveCart', savedJson);
-        }
+            console.log(localStorage);
     }
 
     getGenres() {
