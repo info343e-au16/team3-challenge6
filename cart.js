@@ -59,8 +59,6 @@ class Cart extends React.Component {
                 movie = {id: id, title: title, poster: poster, overview: overview};
                 movies.push(movie);
                 
-                console.log(movies);
-                console.log(this.state);
                 this.setState({
                     movies: movies
                 });
