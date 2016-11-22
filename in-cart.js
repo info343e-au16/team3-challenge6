@@ -1,3 +1,6 @@
+// This component renders the "in cart" buttons where the user can choose to
+// add, remove, or delete the amount of movies in their cart. 
+
 class InCart extends React.Component {
     render() {
         return (
@@ -7,21 +10,16 @@ class InCart extends React.Component {
                     <li key={movie.id}>
                         <div> 
                             <h2>{movie.title}</h2>
-
                             <div>
                                 <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster} />
                                 <p>{movie.overview}</p>
-
                                     <p>Quantity:</p>
                                     <button onClick={(e) => this.minus(e, movie.id, "min")}>-</button>
                                     {movie.quantity}
                                     <button onClick={(e) => this.add(e, movie.id, "plus")}>+</button>
-                                    
-                                    <div>
-                                       <button onClick={(e) => this.delete(e, movie.id )}>Remove All</button>
-                                    </div>
-                                       
-
+                                <div>
+                                    <button onClick={(e) => this.delete(e, movie.id )}>Remove All</button>
+                                </div>
                                 <p>Total price: {movie.totalPrice}</p>
                             </div>
                         </div>

@@ -1,3 +1,6 @@
+// This component renders the remove button where the user can remove 
+// the movies they have in the cart.
+
 class RemoveMovie extends React.Component {
     render() {
         return (

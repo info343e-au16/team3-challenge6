@@ -47,28 +47,30 @@ class Cart extends React.Component {
             var movie = {};
             var quantity = product.quantity;
             var totalPrice = numeral(quantity * 14.95).format('$0,0.00');
+            
             // fetches data as json and pieces apart information that is displayed
             fetch(url)
-            .then((response) => {
-                return response.json();
-            }).then((json) => {   
-                var id = json.id;
-                var title = json.title;
-                var poster = json.poster_path;
-                var overview = json.overview;
-                
-                movie = {id: id, title: title, poster: poster, overview: overview, quantity: quantity, totalPrice: totalPrice};
-                movies.push(movie);
-                
-                this.setState({
-                    movies: movies
-                });
-            }).catch((error) => {
+                .then((response) => {
+                    return response.json();
+                }).then((json) => {   
+                    var id = json.id;
+                    var title = json.title;
+                    var poster = json.poster_path;
+                    var overview = json.overview;
+                    
+                    movie = {id: id, title: title, poster: poster, overview: overview, quantity: quantity, totalPrice: totalPrice};
+                    movies.push(movie);
+                    
+                    this.setState({
+                        movies: movies
+                    });
+                }).catch((error) => {
             });
     }
 
     updateQuantity(id, type) {
         var saveCartJSON = localStorage.getItem('saveCart');
+        
         var saveCart = JSON.parse(saveCartJSON);
         saveCart = this.updateArray(saveCart, id, type);
                 
@@ -104,6 +106,7 @@ class Cart extends React.Component {
             
             if (array[i].totalPrice !== undefined) {
                 var newTotalPrice = numeral(array[i].quantity * 14.95).format('$0,0.00');
+                
                 array[i].totalPrice = newTotalPrice;
             }
         }
@@ -112,8 +115,8 @@ class Cart extends React.Component {
     
     deleteAll(id) {
         var saveCartJSON = localStorage.getItem('saveCart');
-        var saveCart = JSON.parse(saveCartJSON);
-        
+       
+        var saveCart = JSON.parse(saveCartJSON); 
         saveCart = this.spliceArray(saveCart, id);
 
         var savedJson = JSON.stringify(saveCart);
@@ -121,6 +124,7 @@ class Cart extends React.Component {
         
         var movies = this.state.movies;
         movies = this.spliceArray(movies, id);
+
         this.setState({
             movies: movies
         });
@@ -128,6 +132,7 @@ class Cart extends React.Component {
 
     spliceArray(array, id) {
         var splicedArray = array;
+
         for (var i=splicedArray.length-1; i>=0; i--) {
             if (splicedArray[i]["id"] === id) {
                 splicedArray.splice(i, 1);

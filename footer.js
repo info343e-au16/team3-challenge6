@@ -1,4 +1,4 @@
-// This component renders the footer
+// This component renders the footer and the last and next buttons.
 
 class Footer extends React.Component {
     render() {
@@ -21,11 +21,13 @@ class Footer extends React.Component {
 
     onLeftClick(e, id) {
         e.preventDefault(); 
+
         this.props.onLeftClick(id); 
     }    
     
     onRightClick(e, id) {
         e.preventDefault(); 
+        
         this.props.onRightClick(id); 
     }
 }

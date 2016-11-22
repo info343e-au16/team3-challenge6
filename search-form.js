@@ -1,6 +1,7 @@
+// This component renders the search form where the user can search for movies.
+
 class SearchForm extends React.Component {
     render() {
-
             return (
                 <form onSubmit={(e) => this.onSearch(e)}>  
                     <div className="col-lg-6">

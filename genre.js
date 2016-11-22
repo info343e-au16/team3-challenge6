@@ -1,3 +1,5 @@
+// This component renders the dropdown bar to display the genres.
+
 class Genre extends React.Component {
     render() {
         return (
@@ -20,6 +22,7 @@ class Genre extends React.Component {
 
     onGenreClick(e, id) {
         e.preventDefault(); 
+        
         this.props.onGenreClick(id); 
     }
 }

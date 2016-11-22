@@ -1,3 +1,5 @@
+// This component renders the cart button.
+
 class CartButton extends React.Component {
     render() {
         return (
