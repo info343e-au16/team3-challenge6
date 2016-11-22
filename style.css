@@ -1,0 +1,37 @@
+body {
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    padding-bottom: 50px;
+    padding-left: 15px;
+}
+
+button {
+    background-color: #86c9cc;
+    background-repeat: none;
+    color: ghostwhite;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 13px;
+    border: none;
+}
+
+div.tab {
+    padding-bottom: 20px;
+}
+
+img {
+    padding-top: 10px;
+}
+
+p {
+    padding-top: 10px;
+}
+
+input {
+    padding: 5px;
+}
+
+li {
+    padding-top: 6px;
+    list-style-type: none; 
+}

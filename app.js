@@ -7,6 +7,7 @@ class App extends React.Component {
 
         this.state = {
             movies: [],
+            results: [],
             genres: [],
             cart: [],
             cartNumber: 0
@@ -25,32 +26,41 @@ class App extends React.Component {
             });
         }
 
-        this.getGenres(); 
+        this.getGenres();  
         this.topTwenty();
     }
 
     render() {
         return (
             <div className="container">
-            <Header />
-            
-            <SearchForm 
-                onSearch={(movie) => this.movieURL(movie)}
-            />
+                <Header />
+                
+                <SearchForm 
+                    onSearch={(movie) => this.movieURL(movie)}
+                />
 
-            <Genre 
-                genres={this.state.genres}
-                onGenreClick={(id) => (id === "popular") ? this.topTwenty() : this.genreURL(id)}
-            /> 
+                <Genre 
+                    genres={this.state.genres}
+                    onGenreClick={(id) => (id === "popular") ? this.topTwenty() : this.genreURL(id)}
+                /> 
 
-            <CartButton
-                cartNumber={this.state.cartNumber}
-            />
+                <CartButton
+                    cartNumber={this.state.cartNumber}
+                />
 
-            <Movies
-                movies={this.state.movies}
-                save={(id) => this.addToCart(id)}
-            />
+                <Movies
+                    movies={this.state.movies}
+                    save={(id) => this.addToCart(id)}
+                />
+
+                {
+                    this.state.page ? (
+                        <Footer 
+                            page={this.state.page}
+                            totalPages={this.state.totalPages}
+                        />
+                    ) : null
+                }
 
             </div>
         );
@@ -103,6 +113,19 @@ class App extends React.Component {
             });
     }
 
+    getPages() {
+        if(this.state.movies) {
+            var currentPage = this.state.results.page; 
+            var totalPages = this.state.results.total_pages;
+            
+            this.setState({
+                page: currentPage,
+                totalPages: totalPages
+            });
+
+        }
+    }
+
     searchMovie(url) {
             // fetches data as json and pieces apart information that is displayed
             fetch(url)
@@ -110,10 +133,13 @@ class App extends React.Component {
                 return response.json();
             }).then((json) => {   
                 this.setState({
+                    results: json,
                     movies: json.results
                 });
+                this.getPages();
             }).catch((error) => {
             });
+
     }
 
     movieURL(movie) {
