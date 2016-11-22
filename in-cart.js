@@ -14,28 +14,27 @@ class InCart extends React.Component {
                                 <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster} />
                                 <p>{movie.overview}</p>
                                     <p>Quantity:</p>
-                                    <button onClick={(e) => this.minus(e, movie.id, "min")}>-</button>
+                                    <button onClick={(e) => this.update(e, movie.id, "min")}>-</button>
                                     {movie.quantity}
-                                    <button onClick={(e) => this.add(e, movie.id, "plus")}>+</button>
+                                    <button onClick={(e) => this.update(e, movie.id, "plus")}>+</button>
                                 <div>
                                     <button onClick={(e) => this.delete(e, movie.id )}>Remove All</button>
                                 </div>
-                                <p>Total price: {movie.totalPrice}</p>
+                                <p>Movie total price: {movie.totalPrice}</p>
                             </div>
                         </div>
                     </li>
                 ))
                 }
+                <li>
+                    <p className="total">Total price: {this.props.grandTotal}</p>
+                </li>
             </ul>
         )
     }
     
-    minus(e, id, type) {
-        this.props.minus(id, type);
-    }
-
-    add(e, id, type) {
-        this.props.add(id, type);
+    update(e, id, type) {
+        this.props.update(id, type);
     }
 
     delete(e, id) {
