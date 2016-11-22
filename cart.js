@@ -36,6 +36,7 @@ class Cart extends React.Component {
                     movies={this.state.movies}
                     minus={(id, type) => this.updateQuantity(id, type)}
                     add={(id, type) => this.updateQuantity(id, type)}
+                    delete={(id) => this.deleteAll(id)}
                 />
             </div>
         );
@@ -69,21 +70,21 @@ class Cart extends React.Component {
     updateQuantity(id, type) {
         var saveCartJSON = localStorage.getItem('saveCart');
         var saveCart = JSON.parse(saveCartJSON);
-        var newCart = this.updateArray(saveCart, id, type);
+        saveCart = this.updateArray(saveCart, id, type);
                 
         this.setState({
-            cart: newCart
+            cart: saveCart
         });
 
-        var savedJson = JSON.stringify(newCart);
+        var savedJson = JSON.stringify(saveCart);
         localStorage.setItem('saveCart', savedJson);
         
 
         var movies = this.state.movies;
-        var newMovies = this.updateArray(movies, id, type);
+        movies = this.updateArray(movies, id, type);
                 
         this.setState({
-            movies: newMovies
+            movies: movies
         });
 
     }
@@ -108,7 +109,32 @@ class Cart extends React.Component {
         }
         return newArray;
     }
+    
+    deleteAll(id) {
+        var saveCartJSON = localStorage.getItem('saveCart');
+        var saveCart = JSON.parse(saveCartJSON);
+        
+        saveCart = this.spliceArray(saveCart, id);
 
+        var savedJson = JSON.stringify(saveCart);
+        localStorage.setItem('saveCart', savedJson);
+        
+        var movies = this.state.movies;
+        movies = this.spliceArray(movies, id);
+        this.setState({
+            movies: movies
+        });
+    }
+
+    spliceArray(array, id) {
+        var splicedArray = array;
+        for (var i=splicedArray.length-1; i>=0; i--) {
+            if (splicedArray[i]["id"] === id) {
+                splicedArray.splice(i, 1);
+            }
+        }
+        return splicedArray;
+    }
     
 }
 
