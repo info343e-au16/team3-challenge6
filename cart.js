@@ -29,6 +29,9 @@ class Cart extends React.Component {
     render() {
         return (
             <div className="container">
+
+                <Header />
+
                 <InCart
                     movies={this.state.movies}
                 />
