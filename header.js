@@ -1,14 +1,14 @@
-// This component renders the header
+// This component renders the header and navigation bar.
 
 class Header extends React.Component {
     render() {
         return (
             <header className="navHeader">
                 <h1>React Movies</h1>
-               <div className="tab">
+                <div className="tab">
                     <ul className="nav nav-tabs">
-                            <li role="presentation"><a href="index.html">Home</a></li>
-                            <li role="presentation"><a href="cart.html">Go To Cart</a></li>
+                        <li role="presentation"><a href="index.html">Home</a></li>
+                        <li role="presentation"><a href="cart.html">Go To Cart</a></li>
                     </ul>
                 </div>
             </header>
