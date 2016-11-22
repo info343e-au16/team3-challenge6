@@ -8,7 +8,7 @@ class Header extends React.Component {
                 <div className="tab">
                     <ul className="nav nav-tabs">
                         <li role="presentation"><a href="index.html">Home</a></li>
-                        <li role="presentation"><a href="cart.html">Go To Cart</a></li>
+                        <li role="presentation"><a href="cart.html">Cart                     ({this.props.cartNumber})</a></li>
                     </ul>
                 </div>
             </header>

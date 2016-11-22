@@ -15,21 +15,30 @@ class Cart extends React.Component {
         var saveCartJSON = localStorage.getItem('saveCart');
         var saveCart = JSON.parse(saveCartJSON);
         
+        var cartNumber = 0;
+        
         if (saveCart) {
             this.setState({
                 cart: saveCart
             });
-        }
-        for (var i = 0; i < saveCart.length; i++) {
-            this.getMovies(saveCart[i]);
+            
+            for (var i = 0; i < saveCart.length; i++) {
+                this.getMovies(saveCart[i]);
+            }
+            
+            cartNumber = this.getCartNumber(saveCart);
         }
         
+        this.setState({
+            cartNumber: cartNumber
+        });
     }
 
     render() {
         return (
             <div className="container">
                 <Header
+                    cartNumber={this.state.cartNumber}
                 />
 
                 <InCart
@@ -74,8 +83,12 @@ class Cart extends React.Component {
         var saveCart = JSON.parse(saveCartJSON);
         saveCart = this.updateArray(saveCart, id, type);
                 
+        var cart = this.state.cart;
+        var cartNumber = this.getCartNumber(cart);
+        
         this.setState({
-            cart: saveCart
+            cart: saveCart,
+            cartNumber: cartNumber
         });
 
         var savedJson = JSON.stringify(saveCart);
@@ -99,7 +112,9 @@ class Cart extends React.Component {
             if (array[i]["id"] === id) {
                 if (type == "plus") {
                     array[i]["quantity"] += 1;
-                } else {
+                    
+                // Quantity of movie cannot be less than 1 in the cart
+                } else if (array[i]["quantity"] > 1) {
                     array[i]["quantity"] -= 1;
                 } 
             }
@@ -124,9 +139,12 @@ class Cart extends React.Component {
         
         var movies = this.state.movies;
         movies = this.spliceArray(movies, id);
+        
+        var cartNumber = this.getCartNumber(saveCart);
 
         this.setState({
-            movies: movies
+            movies: movies,
+            cartNumber: cartNumber
         });
     }
 
@@ -140,7 +158,15 @@ class Cart extends React.Component {
         }
         return splicedArray;
     }
-    
+
+    getCartNumber(cart) {
+        var cartNumber = 0;
+        
+        for (var i = 0; i < cart.length; i++) {
+            cartNumber += cart[i]["quantity"];
+        }
+        return cartNumber;
+    }
 }
 
 var app = document.getElementById('app');

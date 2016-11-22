@@ -33,7 +33,9 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <Header />
+                <Header 
+                    cartNumber={this.state.cartNumber}
+                />
                 
                 <SearchForm 
                     onSearch={(movie) => this.movieURL(movie)}
