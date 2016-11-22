@@ -40,3 +40,9 @@ li {
 footer {
     text-align: center;
 }
+
+.total {
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px;
+}

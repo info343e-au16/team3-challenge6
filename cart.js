@@ -27,6 +27,10 @@ class Cart extends React.Component {
             }
             
             cartNumber = this.getCartNumber(saveCart);
+
+            this.setState({
+                grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
+            });
         }
         
         this.setState({
@@ -43,9 +47,9 @@ class Cart extends React.Component {
 
                 <InCart
                     movies={this.state.movies}
-                    minus={(id, type) => this.updateQuantity(id, type)}
-                    add={(id, type) => this.updateQuantity(id, type)}
+                    update={(id, type) => this.updateQuantity(id, type)}
                     delete={(id) => this.deleteAll(id)}
+                    grandTotal={this.state.grandTotal}
                 />
             </div>
         );
@@ -83,12 +87,13 @@ class Cart extends React.Component {
         var saveCart = JSON.parse(saveCartJSON);
         saveCart = this.updateArray(saveCart, id, type);
                 
-        var cart = this.state.cart;
+        var cart = saveCart;
         var cartNumber = this.getCartNumber(cart);
-        
+
         this.setState({
             cart: saveCart,
-            cartNumber: cartNumber
+            cartNumber: cartNumber,
+            grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
         });
 
         var savedJson = JSON.stringify(saveCart);
@@ -144,7 +149,8 @@ class Cart extends React.Component {
 
         this.setState({
             movies: movies,
-            cartNumber: cartNumber
+            cartNumber: cartNumber,
+            grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
         });
     }
 
