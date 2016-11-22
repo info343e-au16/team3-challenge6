@@ -18,8 +18,10 @@ class App extends React.Component {
         var saveCart = JSON.parse(saveCartJSON);
 
         if (saveCart) {
+            var cartNumber = this.getCartNumber(saveCart);
             this.setState({
-                cart: saveCart
+                cart: saveCart,
+                cartNumber: cartNumber
             });
         }
 
@@ -38,8 +40,7 @@ class App extends React.Component {
 
             <Genre 
                 genres={this.state.genres}
-                onPopularClick={() => this.topTwenty()}
-                onGenreClick={(id) => this.genreURL(id)}
+                onGenreClick={(id) => (id === "popular") ? this.topTwenty() : this.genreURL(id)}
             /> 
 
             <CartButton
@@ -57,21 +58,35 @@ class App extends React.Component {
 
     addToCart(id) {
         var cart = this.state.cart;
+        var notInCart = true;
+        var index;
 
-        if (cart.indexOf(id) < 0) {
-            cart.push(id);
-
-            var cartNumber = cart.length;
-
-            this.setState({
-                cart: cart,
-                cartNumber: cartNumber
-            });
-
-            console.log(this.state);
-            var savedJson = JSON.stringify(cart);
-            localStorage.setItem('saveCart', savedJson);
+        var product = {};
+        for (var i = 0; i < cart.length; i++) {
+            if (cart[i]["id"] === id) {
+                notInCart = false;
+                index = i;
+            } 
         }
+        
+        if (notInCart) {
+            product = {id: id, quantity: 1};
+            cart.push(product);
+        } else {
+            var newQuantity = cart[index]["quantity"] + 1;
+            product = {id: id, quantity: newQuantity}
+            cart[index] = product;
+        }
+        
+        var cartNumber = this.getCartNumber(cart);
+
+        this.setState({
+            cart: cart,
+            cartNumber: cartNumber
+        });
+
+        var savedJson = JSON.stringify(cart);
+        localStorage.setItem('saveCart', savedJson);
     }
 
     getGenres() {
@@ -114,6 +129,14 @@ class App extends React.Component {
 
     topTwenty() {
         this.searchMovie("https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY);
+    }
+
+    getCartNumber(cart) {
+        var cartNumber = 0;
+        for (var i = 0; i < cart.length; i++) {
+            cartNumber += cart[i]["quantity"];
+        }
+        return cartNumber;
     }
 }
 

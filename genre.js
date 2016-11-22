@@ -1,22 +1,20 @@
 class Genre extends React.Component {
     render() {
         return (
-            <ul>
-                <li>
-                    <a href="#" onClick={(e) => this.onPopularClick(e)}>
-                        Popular
-                    </a>
-                </li>
-                {
-                this.props.genres.map((genre) => (
-                    <li key={genre.id}>
-                        <a href="#" onClick={(e) => this.onGenreClick(e, genre.id)}> 
-                            {genre.name}
-                        </a> 
-                    </li>
-                ))
-                }
-            </ul>
+            <div>
+                <p>Show movies by genre:
+                <select name="Genre" onChange={(e) => this.onGenreClick(e, e.target.value)}>
+                    <option key="popular" value="popular">Popular</option>
+                    {
+                    this.props.genres.map((genre) => (
+                        <option key={genre.id} value={genre.id}>
+                                {genre.name}
+                        </option>
+                    ))
+                    }
+                </select>
+                </p>
+            </div>
         )
     }
 

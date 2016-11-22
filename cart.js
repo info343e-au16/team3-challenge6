@@ -29,8 +29,11 @@ class Cart extends React.Component {
     render() {
         return (
             <div className="container">
-
-                <Header />
+                <Header
+                />
+            
+                <HomeButton
+                />
 
                 <InCart
                     movies={this.state.movies}
@@ -39,10 +42,9 @@ class Cart extends React.Component {
         );
     }
 
-    getMovies(id) {
-            var url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + API_KEY + "&language=en-US";
+    getMovies(product) {
+            var url = "https://api.themoviedb.org/3/movie/" + product.id + "?api_key=" + API_KEY + "&language=en-US";
             var movie = {};
-        
             // fetches data as json and pieces apart information that is displayed
             fetch(url)
             .then((response) => {
@@ -51,13 +53,10 @@ class Cart extends React.Component {
                 var id = json.id;
                 var title = json.title;
                 var poster = json.poster_path;
-                console.log(poster);
                 var overview = json.overview;
                 
                 movie = {id: id, title: title, poster: poster, overview: overview};
                 movies.push(movie);
-                
-                console.log(movies);
                 
                 this.setState({
                     movies: movies
