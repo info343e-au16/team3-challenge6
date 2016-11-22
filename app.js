@@ -18,9 +18,10 @@ class App extends React.Component {
         var saveCart = JSON.parse(saveCartJSON);
 
         if (saveCart) {
+            var cartNumber = this.getCartNumber(saveCart);
             this.setState({
                 cart: saveCart,
-                cartNumber: saveCart.length
+                cartNumber: cartNumber
             });
         }
 
@@ -76,20 +77,16 @@ class App extends React.Component {
             product = {id: id, quantity: newQuantity}
             cart[index] = product;
         }
-            console.log(cart);
-            var cartNumber = 0;
-        for (var i = 0; i < cart.length; i++) {
-            cartNumber += cart[i]["quantity"];
-        }
+        
+        var cartNumber = this.getCartNumber(cart);
 
-            this.setState({
-                cart: cart,
-                cartNumber: cartNumber
-            });
+        this.setState({
+            cart: cart,
+            cartNumber: cartNumber
+        });
 
-            var savedJson = JSON.stringify(cart);
-            localStorage.setItem('saveCart', savedJson);
-            console.log(localStorage);
+        var savedJson = JSON.stringify(cart);
+        localStorage.setItem('saveCart', savedJson);
     }
 
     getGenres() {
@@ -132,6 +129,14 @@ class App extends React.Component {
 
     topTwenty() {
         this.searchMovie("https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY);
+    }
+
+    getCartNumber(cart) {
+        var cartNumber = 0;
+        for (var i = 0; i < cart.length; i++) {
+            cartNumber += cart[i]["quantity"];
+        }
+        return cartNumber;
     }
 }
 
