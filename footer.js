@@ -6,7 +6,7 @@ class Footer extends React.Component {
             <footer> 
                 {
                     (this.props.page !== 1) ? (
-                        <button onClick={(e) => this.onLeftClick(e)}>Last <i className="fa fa-hand-o-left"></i></button>
+                        <button onClick={(e) => this.onLeftClick(e)}><i className="fa fa-hand-o-left"></i> Last</button>
                     ) : null
                 }
                 Page {this.props.page} out of {this.props.totalPages}
