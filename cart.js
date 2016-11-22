@@ -31,9 +31,6 @@ class Cart extends React.Component {
             <div className="container">
                 <Header
                 />
-            
-                <HomeButton
-                />
 
                 <InCart
                     movies={this.state.movies}
