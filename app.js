@@ -58,6 +58,8 @@ class App extends React.Component {
                         <Footer 
                             page={this.state.page}
                             totalPages={this.state.totalPages}
+                            onRightClick={(page) => this.switchPage(this.state.url, 1)}
+                            onLeftClick={(page) => this.switchPage(this.state.url, -1)}
                         />
                     ) : null
                 }
@@ -126,6 +128,11 @@ class App extends React.Component {
         }
     }
 
+    switchPage(url, next) {       
+        var newURL = url + "&page=" + (this.state.page + next);
+        this.searchMovie(newURL);
+    }
+
     searchMovie(url) {
             // fetches data as json and pieces apart information that is displayed
             fetch(url)
@@ -134,7 +141,8 @@ class App extends React.Component {
             }).then((json) => {   
                 this.setState({
                     results: json,
-                    movies: json.results
+                    movies: json.results,
+                    url: url
                 });
                 this.getPages();
             }).catch((error) => {

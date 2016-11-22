@@ -3,9 +3,29 @@
 class Footer extends React.Component {
     render() {
         return (
-            <div> 
-                <p>Page {this.props.page} out of {this.props.totalPages}</p> 
-            </div>
+            <footer> 
+                {
+                    (this.props.page !== 1) ? (
+                        <button onClick={(e) => this.onLeftClick(e)}>Last <i className="fa fa-hand-o-left"></i></button>
+                    ) : null
+                }
+                Page {this.props.page} out of {this.props.totalPages}
+                {
+                    (this.props.page !== this.props.totalPages) ? (
+                        <button onClick={(e) => this.onRightClick(e)}>Next <i className="fa fa-hand-o-right"></i></button>                 
+                    ) : null
+                }
+            </footer>
         );
+    }
+
+    onLeftClick(e, id) {
+        e.preventDefault(); 
+        this.props.onLeftClick(id); 
+    }    
+    
+    onRightClick(e, id) {
+        e.preventDefault(); 
+        this.props.onRightClick(id); 
     }
 }

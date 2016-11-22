@@ -13,6 +13,7 @@ button {
     font-size: 15px;
     border-radius: 13px;
     border: none;
+    margin: 5px;
 }
 
 div.tab {
@@ -34,4 +35,8 @@ input {
 li {
     padding-top: 6px;
     list-style-type: none; 
+}
+
+footer {
+    text-align: center;
 }
