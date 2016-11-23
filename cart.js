@@ -24,14 +24,16 @@ class Cart extends React.Component {
                 cart: saveCart
             });
             
-            for (var i = 0; i < saveCart.length; i++) {
-                this.getMovies(saveCart[i]);
+            for (var index in saveCart) {
+                this.getMovies(saveCart[index]);
             }
             
             cartNumber = this.getCartNumber(saveCart);
-
+            
+            var grandTotal = this.getGrandTotal(saveCart)
+            
             this.setState({
-                grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
+                grandTotal: grandTotal
             });
         }
         
@@ -49,8 +51,8 @@ class Cart extends React.Component {
 
                 <InCart
                     movies={this.state.movies}
-                    update={(id, type) => this.updateQuantity(id, type)}
-                    delete={(id) => this.deleteAll(id)}
+                    update={(id, type, format) => this.updateQuantity(id, type, format)}
+                    delete={(id, format) => this.deleteAll(id, format)}
                     grandTotal={this.state.grandTotal}
                 />
             </div>
@@ -61,8 +63,15 @@ class Cart extends React.Component {
             var url = "https://api.themoviedb.org/3/movie/" + product.id + "?api_key=" + API_KEY + "&language=en-US";
             var movie = {};
             var quantity = product.quantity;
-            var totalPrice = numeral(quantity * 14.95).format('$0,0.00');
-            
+            var format = product.format;
+            var totalPrice = 0;
+        
+            if (format === "DVD") {
+                totalPrice = numeral(quantity * 14.95).format('$0,0.00');
+            } else {
+                totalPrice = numeral(quantity * 29.95).format('$0,0.00');
+            }
+        
             // fetches data as json and pieces apart information that is displayed
             fetch(url)
                 .then((response) => {
@@ -73,37 +82,38 @@ class Cart extends React.Component {
                     var poster = json.poster_path;
                     var overview = json.overview;
                     
-                    movie = {id: id, title: title, poster: poster, overview: overview, quantity: quantity, totalPrice: totalPrice};
+                    movie = {id: id, title: title, poster: poster, overview: overview, quantity: quantity, totalPrice: totalPrice, format: format};
                     movies.push(movie);
                     
                     this.setState({
                         movies: movies
                     });
-                }).catch((error) => {
-            });
+                });
     }
 
-    updateQuantity(id, type) {
+    updateQuantity(id, type, format) {
         var saveCartJSON = localStorage.getItem('saveCart');
-        
         var saveCart = JSON.parse(saveCartJSON);
-        saveCart = this.updateArray(saveCart, id, type);
+        
+        saveCart = this.updateArray(saveCart, id, type, format);
                 
-        var cart = saveCart;
-        var cartNumber = this.getCartNumber(cart);
-
+        var cartNumber = this.getCartNumber(saveCart);
+        
+        var grandTotal = this.getGrandTotal(saveCart);
+        
         this.setState({
             cart: saveCart,
             cartNumber: cartNumber,
-            grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
+            grandTotal: grandTotal
         });
-
+        
+        // Save updated quantity in localStorage
         var savedJson = JSON.stringify(saveCart);
         localStorage.setItem('saveCart', savedJson);
         
-
+        // Save updated quantity in state
         var movies = this.state.movies;
-        movies = this.updateArray(movies, id, type);
+        movies = this.updateArray(movies, id, type, format);
                 
         this.setState({
             movies: movies
@@ -111,56 +121,66 @@ class Cart extends React.Component {
 
     }
 
-    updateArray(array, id, type) {
+    updateArray(array, id, type, format) {
         var newArray = array;
-        
-        for (var i = 0; i < array.length; i++) {
-            
-            if (array[i]["id"] === id) {
+        for (var index in array) {
+            if (array[index]["id"] === id && array[index]["format"] === format) {
                 if (type == "plus") {
-                    array[i]["quantity"] += 1;
+                    array[index]["quantity"] += 1;
                     
                 // Quantity of movie cannot be less than 1 in the cart
-                } else if (array[i]["quantity"] > 1) {
-                    array[i]["quantity"] -= 1;
+                } else if (array[index]["quantity"] > 1) {
+                    array[index]["quantity"] -= 1;
                 } 
-            }
-            
-            if (array[i].totalPrice !== undefined) {
-                var newTotalPrice = numeral(array[i].quantity * 14.95).format('$0,0.00');
                 
-                array[i].totalPrice = newTotalPrice;
+                if (array[index].totalPrice !== undefined) {
+                    var newTotalPrice = 0;
+                    
+                    if (format === "DVD") {
+                        newTotalPrice = numeral(array[index]["quantity"] * 14.95).format('$0,0.00');
+                    } else {
+                        newTotalPrice = numeral(array[index]["quantity"] * 29.95).format('$0,0.00');
+                    }
+                    
+                    array[index].totalPrice = newTotalPrice;
+                }
             }
         }
         return newArray;
     }
     
-    deleteAll(id) {
+    deleteAll(id, format) {
+        // Edits an array that represents localStorage
         var saveCartJSON = localStorage.getItem('saveCart');
-       
         var saveCart = JSON.parse(saveCartJSON); 
-        saveCart = this.spliceArray(saveCart, id);
-
+        saveCart = this.spliceArray(saveCart, id, format);
+        
+        // Update localStorage with updated array
         var savedJson = JSON.stringify(saveCart);
         localStorage.setItem('saveCart', savedJson);
         
+        // Updates the state witht the new values
         var movies = this.state.movies;
-        movies = this.spliceArray(movies, id);
+        movies = this.spliceArray(movies, id, format);
         
-        var cartNumber = this.getCartNumber(saveCart);
-
+        var cartNumber = this.getCartNumber(movies);
+        var grandTotal = this.getGrandTotal(movies);
+        
         this.setState({
             movies: movies,
             cartNumber: cartNumber,
-            grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
+            grandTotal: grandTotal
         });
     }
 
-    spliceArray(array, id) {
+
+    // http://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string
+    // Finds the index that matches the location, then removes it
+    spliceArray(array, id, format) {
         var splicedArray = array;
 
-        for (var i=splicedArray.length-1; i>=0; i--) {
-            if (splicedArray[i]["id"] === id) {
+        for (var i = splicedArray.length - 1; i >= 0; i--) {
+            if (splicedArray[i]["id"] === id && splicedArray[i]["format"] === format) {
                 splicedArray.splice(i, 1);
             }
         }
@@ -170,10 +190,24 @@ class Cart extends React.Component {
     getCartNumber(cart) {
         var cartNumber = 0;
         
-        for (var i = 0; i < cart.length; i++) {
-            cartNumber += cart[i]["quantity"];
+        for (var index in cart) {
+            cartNumber += cart[index]["quantity"];
         }
         return cartNumber;
+    }
+
+    getGrandTotal(saveCart) {
+            var grandTotal = 0;
+
+            for (var index in saveCart) {
+                if (saveCart[index]["format"] === "DVD") {
+                    grandTotal += (saveCart[index]["quantity"] * 14.95);
+                } else {
+                    grandTotal += (saveCart[index]["quantity"] * 29.95);
+                }
+            }
+        
+            return grandTotal = numeral(grandTotal).format('$0,0.00');
     }
 }
 

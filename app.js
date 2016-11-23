@@ -54,7 +54,7 @@ class App extends React.Component {
 
                 <Movies
                     movies={this.state.movies}
-                    save={(id) => this.addToCart(id)}
+                    save={(id, format) => this.addToCart(id, format)}
                 />
 
                 {
@@ -74,25 +74,25 @@ class App extends React.Component {
 
     // Allows user to add to the number of movies in the cart 
     // and save it to local storage
-    addToCart(id) {
+    addToCart(id, format) {
         var cart = this.state.cart;
         var notInCart = true;
         var index;
 
         var product = {};
         for (var i = 0; i < cart.length; i++) {
-            if (cart[i]["id"] === id) {
+            if (cart[i]["id"] === id && cart[i]["format"] === format) {
                 notInCart = false;
                 index = i;
             } 
         }
         
         if (notInCart) {
-            product = {id: id, quantity: 1};
+            product = {id: id, format: format, quantity: 1};
             cart.push(product);
         } else {
             var newQuantity = cart[index]["quantity"] + 1;
-            product = {id: id, quantity: newQuantity}
+            product = {id: id, format: format, quantity: newQuantity}
             cart[index] = product;
         }
         
