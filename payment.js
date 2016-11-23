@@ -7,7 +7,7 @@ class Payment extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="span12">
-                    <form className="form-horizontal span6" method="post" action="thankyou.html">
+                    <form className="form-horizontal span6" action="thankyou.html">
                         <fieldset>
                         <legend>Payment</legend>
                         <div className="display-td" >                            
@@ -77,7 +77,6 @@ class Payment extends React.Component {
                     
                         <div className="form-actions">
                             <button type="submit" className="btn btn-primary">Submit</button>
-                            <button type="button" className="btn">Cancel</button>
                         </div>
                         </fieldset>
                     </form>

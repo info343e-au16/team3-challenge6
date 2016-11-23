@@ -2,7 +2,9 @@
 
 class ThankYou extends React.Component {
 
+    // renders thank you message and clears cart
     render() {
+        localStorage.clear();
         return (
             <div className="container">
                 <Header />
