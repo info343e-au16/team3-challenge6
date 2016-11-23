@@ -118,7 +118,7 @@ class App extends React.Component {
     }
 
     getPages() {
-        if(this.state.movies) {
+        if (this.state.movies) {
             var currentPage = this.state.results.page; 
             var totalPages = this.state.results.total_pages;
             
