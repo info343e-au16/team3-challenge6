@@ -48,10 +48,6 @@ class App extends React.Component {
                     onGenreClick={(id) => (id === "popular") ? this.topTwenty() : this.genreURL(id)}
                 /> 
 
-                <CartButton
-                    cartNumber={this.state.cartNumber}
-                />
-
                 <Movies
                     movies={this.state.movies}
                     save={(id, format) => this.addToCart(id, format)}

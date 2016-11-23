@@ -5,30 +5,17 @@ body {
     background-image: linear-gradient(to left, white, #D1EEEE);
 }
 
-button {
-    background-color: #86c9cc;
-    background-repeat: none;
-    color: ghostwhite;
-    text-align: center;
-    display: inline-block;
-    font-size: 15px;
-    border-radius: 13px;
-    border: none;
-}
-
-.total {
-    padding-left: 10px;
-    font-weight: bold;
-    font-size: 30px;
-    position: fixed;
-}
-
 img {
     padding-top: 10px;
 }
 
 p {
     padding-top: 10px;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
 }
 
 li {
@@ -40,18 +27,61 @@ input {
     padding: 5px;
 }
 
+footer {
+    text-align: center;
+}
+
+
 div.tab {
     padding-bottom: 20px;
+}
+
+button {
+    background-color: #86c9cc;
+    background-repeat: none;
+    color: ghostwhite;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 13px;
+    border: none;
+}
+
+.button-container {
+    padding: 5px;
 }
 
 .fixed-position {
     position: fixed;
 }
 
+.movie-container {
+    overflow: auto;
+}
+
+.movie-thumb {
+    float: left;
+}
+
+.movie-thumb img {
+    display: block;
+    padding: 10px;
+}
+
+.quantity {
+    padding: 5px;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 30px;
+}
+
 .checkout {
     margin-bottom: 15px; 
 }
 
-footer {
-    text-align: center;
+.checkout-button {
+    background-color: #F79CA7;
+    padding: 10px;
 }
