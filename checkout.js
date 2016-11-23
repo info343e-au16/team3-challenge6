@@ -29,9 +29,11 @@ class Checkout extends React.Component {
             }
             
             cartNumber = this.getCartNumber(saveCart);
+            
+            var grandTotal = this.getGrandTotal(saveCart)
 
             this.setState({
-                grandTotal: numeral(cartNumber * 14.95).format('$0,0.00')
+                grandTotal: grandTotal
             });
         }
         
@@ -62,7 +64,14 @@ class Checkout extends React.Component {
             var url = "https://api.themoviedb.org/3/movie/" + product.id + "?api_key=" + API_KEY + "&language=en-US";
             var movie = {};
             var quantity = product.quantity;
-            var totalPrice = numeral(quantity * 14.95).format('$0,0.00');
+            var format = product.format;
+            var totalPrice = 0;
+        
+            if (format === "DVD") {
+                totalPrice = numeral(quantity * 14.95).format('$0,0.00');
+            } else {
+                totalPrice = numeral(quantity * 29.95).format('$0,0.00');
+            }
             
             // fetches data as json and pieces apart information that is displayed
             fetch(url)
@@ -72,7 +81,7 @@ class Checkout extends React.Component {
                     var id = json.id;
                     var title = json.title;
                     
-                    movie = {id: id, title: title, quantity: quantity, totalPrice: totalPrice};
+                    movie = {id: id, title: title, quantity: quantity, format: format, totalPrice: totalPrice};
                     movies.push(movie);
                     
                     this.setState({
@@ -89,6 +98,20 @@ class Checkout extends React.Component {
             cartNumber += cart[i]["quantity"];
         }
         return cartNumber;
+    }
+    
+    getGrandTotal(saveCart) {
+            var grandTotal = 0;
+
+            for (var index in saveCart) {
+                if (saveCart[index]["format"] === "DVD") {
+                    grandTotal += (saveCart[index]["quantity"] * 14.95);
+                } else {
+                    grandTotal += (saveCart[index]["quantity"] * 29.95);
+                }
+            }
+        
+            return grandTotal = numeral(grandTotal).format('$0,0.00');
     }
 }
 

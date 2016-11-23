@@ -10,7 +10,7 @@ class InCart extends React.Component {
                         <ul>
                             {
                             this.props.movies.map((movie) => (
-                                <li key={movie.id}>
+                                <li key={movie.id + movie.format}>
                                     <div> 
                                         <h2>{movie.title}</h2>
                                         <div>
@@ -22,6 +22,9 @@ class InCart extends React.Component {
                                                 <button onClick={(e) => this.update(e, movie.id, "plus", movie.format)}>+</button>
                                             <div>
                                                 <button onClick={(e) => this.delete(e, movie.id, movie.format)}>Remove All</button>
+                                            </div>
+                                            <div>
+                                                Format: {movie.format} 
                                             </div>
                                             <p>Movie total price: {movie.totalPrice}</p>
                                         </div>
