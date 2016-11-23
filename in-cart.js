@@ -4,41 +4,51 @@
 class InCart extends React.Component {
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-6"> 
-                        <ul>
-                            {
-                            this.props.movies.map((movie) => (
-                                <li key={movie.id + movie.format}>
-                                    <div> 
-                                        <h2>{movie.title}</h2>
-                                        <div>
-                                            <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster} />
-                                            <p>{movie.overview}</p>
-                                                <p>Quantity:</p>
-                                                <button onClick={(e) => this.update(e, movie.id, "min", movie.format)}>-</button>
-                                                {movie.quantity}
-                                                <button onClick={(e) => this.update(e, movie.id, "plus", movie.format)}>+</button>
-                                            <div>
-                                                <button onClick={(e) => this.delete(e, movie.id, movie.format)}>Remove All</button>
-                                            </div>
-                                            <div>
-                                                Format: {movie.format} 
-                                            </div>
-                                            <p>Movie total price: {movie.totalPrice}</p>
-                                        </div>
+            <div>
+                <ul>
+                    {
+                    this.props.movies.map((movie) => (
+                        <li key={movie.id + movie.format}>
+                            <div className="movie-container"> 
+            
+                                <div className="movie-thumb">
+                                    <img src= {"http://image.tmdb.org/t/p/w154" + movie.poster} />
+                                </div>
+            
+                                <div>
+                                    <h2>{movie.title}</h2>
+            
+                                    <p>{movie.overview}</p>
+            
+                                    <p>Quantity:</p>
+            
+                                    <button onClick={(e) => this.update(e, movie.id, "min", movie.format)}>-</button>
+        
+                                    <span className="quantity">{movie.quantity}</span>
+                                    
+                                    <button onClick={(e) => this.update(e, movie.id, "plus", movie.format)}>+</button>
+                                    
+                                    <div className="button-container">
+                                        <button onClick={(e) => this.delete(e, movie.id, movie.format)}>Remove All</button>
                                     </div>
-                                </li>
-                            ))
-                            }
-                        </ul>
-                    </div>
-                    <div className="col-sm-6">
-                        <li>
-                            <p className="total">Total price: {this.props.grandTotal}</p>
+                                        
+                                    <div>
+                                        Format: {movie.format} 
+                                    </div>
+                                    
+                                    <p>Movie total price: <strong>{movie.totalPrice}</strong></p>
+                                    
+                                </div>
+                            </div>
                         </li>
-                    </div>
+                    ))
+                    }
+                </ul>
+                <div>
+                    <li>
+                        <p className="total">Total price: {this.props.grandTotal}</p>
+                        <a href="checkout.html"><button className="checkout-button">Checkout</button></a>
+                    </li>
                 </div>
             </div>            
         )
