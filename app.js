@@ -1,3 +1,5 @@
+// Renders main movie page
+
 var API_KEY = '79f72e16c30006b1ee4923040c292af9';
 var BEGINNING_URL = 'https://api.themoviedb.org/3/';
 

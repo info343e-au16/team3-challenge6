@@ -2,6 +2,7 @@ body {
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
     padding-bottom: 50px;
     padding-left: 15px;
+    background-image: linear-gradient(to left, white, #D1EEEE);
 }
 
 button {
@@ -13,11 +14,13 @@ button {
     font-size: 15px;
     border-radius: 13px;
     border: none;
-    margin: 5px;
 }
 
-div.tab {
-    padding-bottom: 20px;
+.total {
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 30px;
+    position: fixed;
 }
 
 img {
@@ -28,26 +31,27 @@ p {
     padding-top: 10px;
 }
 
-input {
-    padding: 5px;
-}
-
 li {
     padding-top: 6px;
     list-style-type: none; 
 }
 
-footer {
-    text-align: center;
+input {
+    padding: 5px;
 }
 
-.total {
-    font-weight: bold;
-    text-align: center;
-    font-size: 30px;
+div.tab {
+    padding-bottom: 20px;
 }
 
 .fixed-position {
     position: fixed;
-    
+}
+
+.checkout {
+    margin-bottom: 15px; 
+}
+
+footer {
+    text-align: center;
 }
