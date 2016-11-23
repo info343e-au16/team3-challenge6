@@ -45,7 +45,11 @@ div.tab {
 }
 
 .fixed-position {
-    position: fixed;   
+    position: fixed;
+}
+
+.checkout {
+    margin-bottom: 15px; 
 }
 
 footer {

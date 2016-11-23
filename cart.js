@@ -1,5 +1,7 @@
+// Renders cart page
+
 var API_KEY = '79f72e16c30006b1ee4923040c292af9';
-var movies = []; 
+var movies = [];
 
 class Cart extends React.Component {
     constructor(props) {
