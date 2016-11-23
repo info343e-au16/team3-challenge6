@@ -14,7 +14,7 @@ class Payment extends React.Component {
                             <img className="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png"></img>
                         </div>
                         <div className="control-group">
-                            <label className="control-label">Card Holder's Name</label>
+                            <label className="control-label">Card Holder&rsquo;s Name</label>
                             <div className="controls">
                             <input type="text" className="input-block-level" pattern="\w+ \w+.*" title="Fill your first and last name" required></input>
                             </div>
